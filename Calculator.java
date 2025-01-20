@@ -2,70 +2,83 @@ import java.util.Scanner;
 
 public class Calculator {
 
-    // Ana giriş noktası
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        displayWelcomeMessage(); // Hoş geldiniz mesajı
+        // Hoş geldiniz mesajı
+        displayWelcomeMessage();
 
         while (true) {
-            displayMenu(); // Menü seçeneklerini göster
+            // Menü seçeneklerini görüntüle
+            displayMenu();
 
-            int choice = getUserChoice(scanner); // Kullanıcının seçimini al
+            // Kullanıcı seçimi
+            int choice = getUserChoice(scanner);
 
+            // Çıkış kontrolü
             if (isExitChoice(choice)) {
                 displayExitMessage();
                 break;
             }
 
+            // Geçersiz seçim kontrolü
             if (isInvalidChoice(choice)) {
                 displayInvalidChoiceMessage();
                 continue;
             }
 
+            // Kullanıcıdan iki sayı al
             double num1 = getNumberFromUser(scanner, "Birinci sayıyı girin: ");
             double num2 = getNumberFromUser(scanner, "İkinci sayıyı girin: ");
 
+            // İşlem sonucu
             double result = performCalculation(choice, num1, num2);
+
+            // Hata durumunda devam et
             if (Double.isNaN(result)) {
-                continue; // Geçersiz işlem durumunda döngüye devam et
+                continue;
             }
 
-            displayResult(result);
+            // Sonuç ekranı
+            displayResult(choice, num1, num2, result);
 
+            // Tekrar işlem yapmak isteyip istemediğini kontrol et
             if (!askToContinue(scanner)) {
                 displayExitMessage();
                 break;
             }
         }
 
-        scanner.close(); // Kaynakları serbest bırak
+        // Kaynakları kapat
+        scanner.close();
     }
 
     // Hoş geldiniz mesajı
     public static void displayWelcomeMessage() {
         System.out.println("Hesap Makinesi Uygulamasına Hoş Geldiniz!");
+        System.out.println("Bu uygulama ile dört işlem, mod alma ve üs alma işlemlerini gerçekleştirebilirsiniz.");
+        System.out.println("Her adımda size rehberlik edilecektir.");
     }
 
-    // Menü seçeneklerini göster
+    // Menü görüntüleme
     public static void displayMenu() {
-        System.out.println("\nYapmak istediğiniz işlemi seçin:");
-        System.out.println("1. Toplama");
-        System.out.println("2. Çıkarma");
-        System.out.println("3. Çarpma");
-        System.out.println("4. Bölme");
-        System.out.println("5. Mod Alma");
-        System.out.println("6. Üs Alma");
-        System.out.println("7. Çıkış");
+        System.out.println("\nLütfen yapmak istediğiniz işlemi seçin:");
+        System.out.println("1. Toplama (İki sayıyı toplar)");
+        System.out.println("2. Çıkarma (İki sayıyı birbirinden çıkarır)");
+        System.out.println("3. Çarpma (İki sayıyı çarpar)");
+        System.out.println("4. Bölme (Birinci sayıyı ikinci sayıya böler)");
+        System.out.println("5. Mod Alma (Birinci sayının ikinci sayıya göre modunu alır)");
+        System.out.println("6. Üs Alma (Birinci sayının ikinci sayı kadar kuvvetini hesaplar)");
+        System.out.println("7. Çıkış (Programı sonlandırır)");
     }
 
-    // Kullanıcının menü seçiminden sorumlu
+    // Kullanıcı seçimini al
     public static int getUserChoice(Scanner scanner) {
         System.out.print("Seçiminizi yapın (1-7): ");
         return scanner.nextInt();
     }
 
-    // Çıkış seçimini kontrol et
+    // Çıkış seçimi kontrolü
     public static boolean isExitChoice(int choice) {
         return choice == 7;
     }
@@ -77,7 +90,7 @@ public class Calculator {
 
     // Geçersiz seçim mesajı
     public static void displayInvalidChoiceMessage() {
-        System.out.println("Geçersiz seçim! Lütfen tekrar deneyin.");
+        System.out.println("Geçersiz bir seçim yaptınız. Lütfen 1 ile 7 arasında bir değer giriniz.");
     }
 
     // Kullanıcıdan sayı alma
@@ -86,51 +99,102 @@ public class Calculator {
         return scanner.nextDouble();
     }
 
-    // İşlem yapma
+    // Hesaplama işlemi
     public static double performCalculation(int choice, double num1, double num2) {
-        double result = 0;
-
         switch (choice) {
             case 1:
-                result = add(num1, num2);
-                break;
+                return add(num1, num2);
             case 2:
-                result = subtract(num1, num2);
-                break;
+                return subtract(num1, num2);
             case 3:
-                result = multiply(num1, num2);
-                break;
+                return multiply(num1, num2);
             case 4:
-                result = divide(num1, num2);
-                break;
+                return divide(num1, num2);
             case 5:
-                result = modulus(num1, num2);
-                break;
+                return modulus(num1, num2);
             case 6:
-                result = power(num1, num2);
-                break;
+                return power(num1, num2);
             default:
-                System.out.println("Hata: Geçersiz işlem!");
+                System.out.println("Hata: Bilinmeyen işlem!");
                 return Double.NaN;
         }
+    }
 
-        return result;
+    // Toplama işlemi
+    public static double add(double num1, double num2) {
+        System.out.println("Toplama işlemi seçildi.");
+        return num1 + num2;
+    }
+
+    // Çıkarma işlemi
+    public static double subtract(double num1, double num2) {
+        System.out.println("Çıkarma işlemi seçildi.");
+        return num1 - num2;
+    }
+
+    // Çarpma işlemi
+    public static double multiply(double num1, double num2) {
+        System.out.println("Çarpma işlemi seçildi.");
+        return num1 * num2;
+    }
+
+    // Bölme işlemi
+    public static double divide(double num1, double num2) {
+        if (num2 == 0) {
+            System.out.println("Hata: Bir sayı sıfıra bölünemez! İşlem iptal edildi.");
+            return Double.NaN;
+        }
+        System.out.println("Bölme işlemi seçildi.");
+        return num1 / num2;
+    }
+
+    // Mod alma işlemi
+    public static double modulus(double num1, double num2) {
+        System.out.println("Mod alma işlemi seçildi.");
+        return num1 % num2;
+    }
+
+    // Üs alma işlemi
+    public static double power(double num1, double num2) {
+        System.out.println("Üs alma işlemi seçildi.");
+        return Math.pow(num1, num2);
     }
 
     // Sonucu ekrana yazdır
-    public static void displayResult(double result) {
-        System.out.println("Sonuç: " + result);
+    public static void displayResult(int choice, double num1, double num2, double result) {
+        String operation = getOperationName(choice);
+        System.out.printf("%s işleminin sonucu: %.2f\n", operation, result);
     }
 
-    // Kullanıcıya devam etmek isteyip istemediğini sor
-    public static boolean askToContinue(Scanner scanner) {
-        System.out.print("\nTekrar işlem yapmak ister misiniz? (Evet/Hayır): ");
-        scanner.nextLine(); // Satır sonunu temizle
-        String choice = scanner.nextLine().trim().toLowerCase();
+    // İşlem adını al
+    public static String getOperationName(int choice) {
+        switch (choice) {
+            case 1:
+                return "Toplama";
+            case 2:
+                return "Çıkarma";
+            case 3:
+                return "Çarpma";
+            case 4:
+                return "Bölme";
+            case 5:
+                return "Mod Alma";
+            case 6:
+                return "Üs Alma";
+            default:
+                return "Bilinmeyen";
+        }
+    }
 
-        if (choice.equals("evet")) {
+    // Kullanıcıdan devam etmek isteyip istemediğini sor
+    public static boolean askToContinue(Scanner scanner) {
+        System.out.print("\nBaşka bir işlem yapmak ister misiniz? (Evet/Hayır): ");
+        scanner.nextLine(); // Satır sonunu temizle
+        String response = scanner.nextLine().trim().toLowerCase();
+
+        if (response.equals("evet")) {
             return true;
-        } else if (choice.equals("hayır")) {
+        } else if (response.equals("hayır")) {
             return false;
         } else {
             System.out.println("Geçersiz giriş! Program sonlandırılıyor.");
@@ -140,40 +204,6 @@ public class Calculator {
 
     // Çıkış mesajı
     public static void displayExitMessage() {
-        System.out.println("Hesap Makinesi Uygulamasından Çıkılıyor. Hoşçakalın!");
-    }
-
-    // Toplama
-    public static double add(double num1, double num2) {
-        return num1 + num2;
-    }
-
-    // Çıkarma
-    public static double subtract(double num1, double num2) {
-        return num1 - num2;
-    }
-
-    // Çarpma
-    public static double multiply(double num1, double num2) {
-        return num1 * num2;
-    }
-
-    // Bölme
-    public static double divide(double num1, double num2) {
-        if (num2 == 0) {
-            System.out.println("Hata: Bir sayı sıfıra bölünemez!");
-            return Double.NaN;
-        }
-        return num1 / num2;
-    }
-
-    // Mod alma
-    public static double modulus(double num1, double num2) {
-        return num1 % num2;
-    }
-
-    // Üs alma
-    public static double power(double num1, double num2) {
-        return Math.pow(num1, num2);
+        System.out.println("Hesap Makinesi Uygulamasından çıkış yapılıyor. Teşekkür ederiz!");
     }
 }
