@@ -1,0 +1,142 @@
+/* Genel Gövde Ayarı */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: url('./images/calculator.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    position: relative;
+}
+
+/* Arka Plan Efekti */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+/* Hesap Makinesi */
+.calculator {
+    background: #1e1e1e;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
+    width: 500px; /* Daha geniş görünüm */
+    max-width: 95%; /* Mobil uyumlu */
+}
+
+/* İşlem ekranı */
+#operation-display {
+    width: 100%;
+    height: 40px;
+    font-size: 1.5em;
+    text-align: right;
+    background: #555454;
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+/* Sonuç ekranı */
+#result-display {
+    width: 100%;
+    height: 60px;
+    font-size: 2em;
+    text-align: right;
+    background: #ffffff;
+    color: #0a0606;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+/* Düğme Genel Ayarları */
+.buttons button {
+    background: #444444;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 25px;
+    font-size: 1.6em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Özel Düğme Renkleri */
+.buttons .btn-success {
+    background: #ff0000;
+    color: #ffffff;
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+    .calculator {
+        padding: 30px;
+        width: 100%;
+    }
+
+    #result-display {
+        font-size: 1.5em;
+        height: 50px;
+    }
+
+    .buttons button {
+        font-size: 1.3em;
+        padding: 20px;
+        height: 70px;
+    }
+}
+button {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ccc; /* Hover rengi */
+}
+
+  /* Bildirim baloncuğu stili */
+  #notification {
+    position: fixed;
+    top: -50px; /* İlk konumu ekran dışında */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff0000; /* Yeşil arka plan */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0; /* Görünmez */
+    transition: opacity 0.5s, top 0.5s ease-out; /* Geçiş animasyonu */
+  }
+
+  /* Animasyon sırasında bildirim görünür hale geliyor */
+  #notification.show {
+    top: 20px; /* Ekranın üst kısmından 20px aşağı iner */
+    opacity: 1; /* Görünür hale gelir */
+  }
+  .col-3 .btn-success {
+    background-color: #f54f4f; /* Gül rengi */
+    border-color: #f54f4f; /* Gül rengi buton kenarı */
+  }
+  
+  .col-3 .btn-success:hover {
+    background-color: #f54f4f; /* Hover durumunda biraz daha koyu gül rengi */
+    border-color: #f54f4f;
+  }
+  
+
+
